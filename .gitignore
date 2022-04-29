@@ -6,6 +6,10 @@
 #Rider
 .idea
 
+**/.idea/
+**/bin/
+**/obj/
+
 # User-specific files
 *.rsuser
 *.suo
