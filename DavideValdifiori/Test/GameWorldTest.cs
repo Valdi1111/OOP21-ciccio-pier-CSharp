@@ -6,6 +6,9 @@ using Tasks.Entities;
 
 namespace Test
 {
+    /// <summary>
+    /// Class for <see cref="GameWorld"/> tests.
+    /// </summary>
     [TestClass]
     public class GameWorldTest
     {
