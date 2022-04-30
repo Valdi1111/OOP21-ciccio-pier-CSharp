@@ -1,15 +1,15 @@
 ﻿namespace Tasks.Entities
 {
     /// <summary>
-    /// Dummy interface for representing a player implementation.
+    /// Dummy class for representing a player implementation.
     /// </summary>
-    public class SimplePlayer : IPlayer
+    public class SimplePlayer : SimpleEntity, IPlayer
     {
         /// <summary>
         /// Dummy constructor for this class.
         /// </summary>
         /// <param name="world">the world</param>
-        public SimplePlayer(IWorld world)
+        public SimplePlayer(IWorld world) : base(world)
         {
             Win = false;
         }

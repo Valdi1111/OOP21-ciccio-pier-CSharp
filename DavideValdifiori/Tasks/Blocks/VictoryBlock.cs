@@ -15,6 +15,7 @@ namespace Tasks.Blocks
         {
         }
 
+        /// <inheritdoc/>>
         public void OnCollision(IEntity entity)
         {
             if (entity is IPlayer player)

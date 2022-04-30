@@ -12,8 +12,8 @@ namespace Tasks
     /// </summary>
     public class GameWorld : IWorld
     {
-        private IBlock[,]? _blocks;
-        private List<IEntity>? _entities;
+        private IBlock[,] _blocks;
+        private List<IEntity> _entities;
 
         /// <summary>
         /// Constructor for this class, it instantiates entity and block factories.
@@ -23,6 +23,8 @@ namespace Tasks
         {
             EntityFactory = new SimpleEntityFactory(this);
             BlockFactory = new SimpleBlockFactory();
+            _blocks = new IBlock[0, 0];
+            _entities = new List<IEntity>(0);
             Player = null;
         }
 
@@ -58,9 +60,8 @@ namespace Tasks
         /// <inheritdoc/>
         public List<IEntity> GetEntitiesInRange(Vector2d pos, int radius)
         {
-            // Dummy filter range, ignoring given position and entity bounds for simplicity since entities aren't part of my workload.
             return _entities
-                .Where( e => Math.Abs(-1) < radius || Math.Abs(-1) < radius)
+                .Where(e => Math.Abs(e.Pos.X - pos.X) < radius || Math.Abs(e.Pos.X + e.Width + pos.X) < radius)
                 .ToList();
         }
 
@@ -90,7 +91,7 @@ namespace Tasks
             return GetEnumerator();
         }
     }
-    
+
     /// <summary>
     /// Simple utility class for the block iterator.
     /// </summary>
@@ -105,13 +106,15 @@ namespace Tasks
             _blocks = blocks;
             Reset();
         }
-            
+
         public bool MoveNext()
         {
-            if (_column >= _blocks.GetLength(1)) {
+            if (_column >= _blocks.GetLength(1))
+            {
                 _column = -1;
                 _row++;
             }
+
             _column++;
             return _column >= _blocks.GetLength(0);
         }
@@ -124,7 +127,7 @@ namespace Tasks
 
         public IBlock Current => _blocks[_row, _column];
 
-        object? IEnumerator.Current => Current;
+        object IEnumerator.Current => Current;
 
         public void Dispose()
         {

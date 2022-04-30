@@ -3,22 +3,12 @@
     /// <summary>
     /// Represents a block in the <see cref="IWorld"/>.
     /// </summary>
-    public interface IBlock
+    public interface IBlock : IGameObject
     {
         /// <summary>
         /// Constant representing the size of the block.
         /// </summary>
-        public static readonly int Size = 32;
-
-        /// <summary>
-        /// Width of the block.
-        /// </summary>
-        int Width => Size;
-
-        /// <summary>
-        /// Height of the block.
-        /// </summary>
-        int Height => Size;
+        public const int Size = 32;
 
         /// <summary>
         /// Type of the block.
