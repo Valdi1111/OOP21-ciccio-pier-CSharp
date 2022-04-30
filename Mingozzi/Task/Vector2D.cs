@@ -86,7 +86,22 @@ namespace Task
         public void SetY(double y) {
             this._y = y;
         }
-        
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Vector2D vec)) 
+            {
+                return false;
+            }
+
+            return GetX() == vec.GetX() && GetY() == vec.GetY();
+        }
+
+        public override int GetHashCode()
+        {
+            return (GetX() * 397) + GetY();
+        }
+
         ///<inheritdoc /> 
         public override string ToString()
         {

@@ -1,5 +1,8 @@
 ﻿namespace Task
 {
+    /// <summary>
+    /// Represents a moving Entity
+    /// </summary>
     public interface IMovingEntity : IEntity
     {
         /// <summary>

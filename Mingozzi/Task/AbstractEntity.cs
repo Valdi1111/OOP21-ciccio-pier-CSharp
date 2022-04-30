@@ -1,43 +1,63 @@
 ﻿namespace Task
 {
+    /// <summary>
+    /// Abstract class that generalizes all basic traits of any kind of Entity
+    /// </summary>
     public abstract class AbstractEntity : AbstractGameObject, IEntity
     {
         private readonly World _world;
         private readonly EntityType _type;
         private bool _removed;
         
-        protected AbstractEntity(EntityType type, World world):base()
+        /// <summary>
+        /// Constructor for this class
+        /// </summary>
+        /// <param name="type">The Entity's type</param>
+        /// <param name="world">The game's world</param>
+        protected AbstractEntity(EntityType type, World world)
         {
-            this._type = type;
-            this._world = world;
-            this._removed = false;
+            _type = type;
+            _world = world;
+            _removed = false;
         }
         
-        public override int GetWidth() => this._type.GetWidth();
+        ///<inheritdoc />
+        public override int GetWidth() => _type.GetWidth();
 
-        public override int GetHeight() => this._type.GetHeight();
+        ///<inheritdoc />
+        public override int GetHeight() => _type.GetHeight();
 
-        public EntityType GetEntityType() => this._type;
+        ///<inheritdoc />
+        public EntityType GetEntityType() => _type;
 
+        ///<inheritdoc />
         public virtual void Load()
         {
             //do nothing
         }
 
-        public bool IsRemoved() => this._removed;
+        ///<inheritdoc />
+        public bool IsRemoved() => _removed;
 
+        ///<inheritdoc />
         public bool CheckCollision(IGameObject obj)
         {
-            return this.GetBounds().IntersectsWith(obj.GetBounds());
+            return GetBounds().IntersectsWith(obj.GetBounds());
         }
 
+        ///<inheritdoc />
         public void Remove()
         {
-            this._removed = true;
+            _removed = true;
         }
-
-        protected World GetWorld() => this._world;
-
+        
+        ///<inheritdoc />
         public abstract void Tick(long ticks);
+        
+        /// <summary>
+        /// Retrieve the World the Entity is placed in
+        /// </summary>
+        /// <returns>The world</returns>
+        protected World GetWorld() => _world;
     }
 }

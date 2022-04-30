@@ -1,5 +1,8 @@
 ﻿namespace Task
 {
+    /// <summary>
+    /// Represents an Entity whom can die
+    /// </summary>
     public interface ILivingEntity : IMovingEntity
     {
         /// <summary>

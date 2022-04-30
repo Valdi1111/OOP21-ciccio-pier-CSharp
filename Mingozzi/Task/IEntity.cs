@@ -1,5 +1,8 @@
 ﻿namespace Task
 {
+    /// <summary>
+    /// Represents an interactive static GameObject
+    /// </summary>
     public interface IEntity : IGameObject
     {
         /// <summary>
@@ -9,7 +12,7 @@
         EntityType GetEntityType();
         
         /// <summary>
-        /// Load the Entity
+        /// Loads the Entity
         /// </summary>
         void Load();
 

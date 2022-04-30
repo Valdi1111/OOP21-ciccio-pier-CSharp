@@ -2,25 +2,37 @@
 
 namespace Task
 {
+    /// <summary>
+    /// Abstract class that generalizes all basic traits for any Object for the Game 
+    /// </summary>
     public abstract class AbstractGameObject : IGameObject
     {
         private Vector2D _pos;
 
+        /// <summary>
+        /// Constructor for this class, it instantiates pos at 0, 0.
+        /// </summary>
         protected AbstractGameObject()
         {
-            this._pos = new Vector2D();
+            _pos = new Vector2D();
         }
 
-        public Vector2D GetPos() => this._pos;
+        ///<inheritdoc />
+        public Vector2D GetPos() => _pos;
 
+        ///<inheritdoc />
         public void SetPos(Vector2D pos)
         {
-            this._pos = pos;
+            _pos = pos;
         }
 
+        ///<inheritdoc />
         public abstract int GetWidth();
+        
+        ///<inheritdoc />
         public abstract int GetHeight();
 
-        public Rectangle GetBounds() => new Rectangle(this.GetPos().GetX(), this.GetPos().GetY(), this.GetWidth(), this.GetHeight());
+        ///<inheritdoc />
+        public Rectangle GetBounds() => new Rectangle(GetPos().GetX(), GetPos().GetY(), GetWidth(), GetHeight());
     }
 }

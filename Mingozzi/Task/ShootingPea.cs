@@ -1,62 +1,75 @@
 ﻿namespace Task
 {
+    /// <summary>
+    /// Represents the enemy ShootingPea, a walking pea whom attack consists into shooting
+    /// peas bursting from the pod's bottom.
+    /// </summary>
     public class ShootingPea : AbstractPathEnemy
     {
-        public static readonly int ATTACK_RANGE = 7 * 32;
-        public static readonly int IDLE_DURATION = 2 * 60;
-        public static readonly int MAX_RIGHT_OFFSET = 4 * 32;
-        public static readonly int ATTACK_COOLDOWN = 2 * 60;
-        public static readonly double MOVEMENT_SPEED = 1.5;
-        public static readonly int ATTACK_DURATION = 2 * 60;
+        private const int AttackRange = 7 * 32;
+        private const int IdleDuration = 2 * 60;
+        private const int MaxRightOffset = 4 * 32;
+        private const int AttackCooldown = 2 * 60;
+        private const double MovementSpeed = 1.5;
+        private const int AttackDuration = 2 * 60;
 
-        private bool shot;
-        private int attackDurationTicks;
+        private bool _shot;
+        private int _attackDurationTicks;
         
-        public ShootingPea(World world) : base(EntityType.SHOOTING_PEA,world)
+        /// <summary>
+        /// Constructor for this class
+        /// </summary>
+        /// <param name="world">The game's world</param>
+        public ShootingPea(World world) : base(EntityType.ShootingPea,world)
         {
-            this.attackDurationTicks = 0;
-            this.shot = false;
+            _attackDurationTicks = 0;
+            _shot = false;
         }
         
+        ///<inheritdoc />
         public override double GetMovementSpeed() {
-            return MOVEMENT_SPEED;
+            return MovementSpeed;
         }
         
+        ///<inheritdoc />
         public override double GetIdleDuration() {
-            return IDLE_DURATION;
+            return IdleDuration;
         }
 
-
+        ///<inheritdoc />
         public override int GetAttackRange() {
-            return ATTACK_RANGE;
+            return AttackRange;
         }
 
+        ///<inheritdoc />
         public override int GetMaxRightOffset() {
-            return MAX_RIGHT_OFFSET;
+            return MaxRightOffset;
         }
 
+        ///<inheritdoc />
         protected override void Attacking() {
-            this.GetVel().SetX(0);
-            if (this.GetShootingCooldownTicks() == 0) {
-                this.shot = false;
-                this.ResetCurrentState(EntityState.ATTACKING);
+            GetVel().SetX(0);
+            if (GetShootingCooldownTicks() == 0) {
+                _shot = false;
+                ResetCurrentState(EntityState.Attacking);
             }
-            if (this.GetCurrentState().Equals(EnemyState.ATTACKING)) {
-                this.attackDurationTicks++;
+            if (GetCurrentState().Equals(EntityState.Attacking)) {
+                _attackDurationTicks++;
             }
-            if (this.attackDurationTicks >= ATTACK_DURATION) {
-                this.SetShootingCooldownTicks(ATTACK_COOLDOWN);
-                this.attackDurationTicks = 0;
-                this.ResetCurrentState(EntityState.IDLE);
-            } else if (this.attackDurationTicks >= ATTACK_DURATION / 2 && !this.shot) {
+            if (_attackDurationTicks >= AttackDuration) {
+                SetShootingCooldownTicks(AttackCooldown);
+                _attackDurationTicks = 0;
+                ResetCurrentState(EntityState.Idle);
+            } else if (_attackDurationTicks >= AttackDuration / 2 && !this._shot) {
                 //Here i would call the shooting method, not implemented in this translation
-                this.shot = true;
-                this.SetShootingCooldownTicks(ATTACK_COOLDOWN);
+                _shot = true;
+                SetShootingCooldownTicks(AttackCooldown);
             }
         }
-
+        
+        ///<inheritdoc />
         protected override void NotAttacking() {
-            this.attackDurationTicks = 0;
+            _attackDurationTicks = 0;
         }
     }
 }

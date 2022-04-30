@@ -1,15 +1,16 @@
 ﻿namespace Task
 {
+    /// <summary>
+    /// Class that abstracts an Entity that can be either alive or dead
+    /// </summary>
     public abstract class AbstractLivingEntity : AbstractMovingEntity, ILivingEntity
     {
-        private readonly int MAX_GRAVITY = 20;
-        private readonly int JUMP_FORCE = 16;
-        private readonly int MAX_TIME = 35;
-        
-        private readonly Vector2D _gravity;
+        private const int JumpForce = 16;
+        private const int MaxTime = 35;
+
         private readonly int _maxHp;
         private int _hp;
-        private bool _ground;
+        private readonly bool _ground;
         private bool _dead;
         private bool _isReady;
         private bool _facingRight;
@@ -17,107 +18,135 @@
         private EntityState _oldState;
         private EntityState _currentState;
         
+        /// <summary>
+        /// Constructor for this class
+        /// </summary>
+        /// <param name="type">The Entity's type</param>
+        /// <param name="world">The game's world</param>
         protected AbstractLivingEntity(EntityType type, World world) : base(type,world)
         {
-            this._ground = false;
-            this._maxHp = this.GetEntityType().GetMaxHp();
-            this._hp = this._maxHp;
-            this._dead = false;
-            this._gravity = new Vector2D(0, 1);
-            this._isReady = true;
-            this._facingRight = true;
-            this._currentState = EntityState.IDLE;
-            this._oldState = EntityState.IDLE;
-            this._time = 0;
+            _ground = false;
+            _maxHp = GetEntityType().GetMaxHp();
+            _hp = _maxHp;
+            _dead = false;
+            _isReady = true;
+            _facingRight = true;
+            _currentState = EntityState.Idle;
+            _oldState = EntityState.Idle;
+            _time = 0;
         }
+        
+        ///<inheritdoc />
+        public int GetHp() => _hp;
 
+        ///<inheritdoc />
+        public int GetMaxHp() => _maxHp;
 
-
-        public int GetHp() => this._hp;
-
-        public int GetMaxHp() => this._maxHp;
-
+        ///<inheritdoc />
         public void Damage(int amount)
         {
-            this._hp -= amount;
-            if (this._hp <= 0)
+            _hp -= amount;
+            if (_hp <= 0)
             {
-                this._hp = 0;
-                this.Die();
+                _hp = 0;
+                Die();
             }
         }
 
+        ///<inheritdoc />
         public void Heal(int amount)
         {
-            this._hp += amount;
-            if (this._hp >= this._maxHp)
+            _hp += amount;
+            if (_hp >= _maxHp)
             {
-                this._hp = this._maxHp;
+                _hp = _maxHp;
             }
         }
 
-        public int GetJumpForce() => this.JUMP_FORCE;
+        ///<inheritdoc />
+        public int GetJumpForce() => JumpForce;
 
+        ///<inheritdoc />
         public bool Jump()
         {
-            if (this._isReady && this._ground) {
-                this.SetCurrentState(EntityState.JUMPING);
-                this.GetVel().SetY(-this.GetJumpForce());
-                this._isReady = false;
-                this._time = 0;
+            if (_isReady && _ground) {
+                SetCurrentState(EntityState.Jumping);
+                GetVel().SetY(-GetJumpForce());
+                _isReady = false;
+                _time = 0;
                 return true;
             }
             return false;
         }
 
-        public EntityState GetOldState() => this._oldState;
+        ///<inheritdoc />
+        public EntityState GetOldState() => _oldState;
 
-        public EntityState GetCurrentState() => this._currentState;
+        ///<inheritdoc />
+        public EntityState GetCurrentState() => _currentState;
 
+        ///<inheritdoc />
         public void SetCurrentState(EntityState state)
         {
-            if (this._currentState == EntityState.IDLE || state == EntityState.DEAD)
+            if (Equals(_currentState, EntityState.Idle) || Equals(state, EntityState.Dead))
             {
-                this._currentState = state;
+                _currentState = state;
             }
         }
 
+        ///<inheritdoc />
         public void ResetCurrentState(EntityState state)
         {
-            this._currentState = state;
+            _currentState = state;
         }
 
-        public bool IsFacingRight() => this._facingRight;
+        ///<inheritdoc />
+        public bool IsFacingRight() => _facingRight;
 
+        ///<inheritdoc />
         public void SetFacingRight(bool condition)
         {
-            this._facingRight = condition;
+            _facingRight = condition;
         }
 
-        public bool IsDead() => this._dead;
+        ///<inheritdoc />
+        public bool IsDead() => _dead;
 
+        ///<inheritdoc />
         public void Die()
         {
-            this.SetCurrentState(EntityState.DEAD);
-            this._dead = true;
+            SetCurrentState(EntityState.Dead);
+            _dead = true;
         }
         
+        ///<inheritdoc />
         public override void Tick(long ticks)
         {
-            this._oldState = this.GetCurrentState();
-            if (this._time >= MAX_TIME)
+            _oldState = GetCurrentState();
+            if (_time >= MaxTime)
             {
-                this._isReady = true;
+                _isReady = true;
             }
             else
             {
-                this._time++;
+                _time++;
             }
         }
 
+        /// <summary>
+        /// Method that moves the Entity
+        /// </summary>
         protected void Move()
         {
-            this.GetPos().Add(this.GetVel());
+            if (GetVel().GetX() > 0)
+            {
+                SetFacingRight(true);
+            }
+            else
+            {
+                SetFacingRight(false);
+            }
+            GetPos().Add(GetVel());
         }
     }
 }

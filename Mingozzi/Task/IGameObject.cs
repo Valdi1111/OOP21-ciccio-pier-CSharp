@@ -2,6 +2,9 @@
 
 namespace Task
 {
+    /// <summary>
+    /// Represents a generic object int the Game
+    /// </summary>
     public interface IGameObject
     {
         /// <summary>
@@ -28,8 +31,10 @@ namespace Task
         /// <param name="pos"> The new position</param>
         void SetPos(Vector2D pos);
 
+        /// <summary>
+        ///  Get a Rectangle representing the occupied space inside the World by the Entity
+        /// </summary>
+        /// <returns>The Rectangle</returns>
         Rectangle GetBounds();
-
-        
     }
 }
