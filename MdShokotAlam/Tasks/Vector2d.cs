@@ -29,6 +29,7 @@ namespace Tasks
             _x = x;
             _y = y;
         }
+
         /// <summary>
         /// Get the X coordinate
         /// </summary>
@@ -66,6 +67,7 @@ namespace Tasks
             _x += v1.DoubleX;
             _y += v1.DoubleY;
         }
+
         /// <summary>
         ///Get the squared length of the vector
         /// </summary>
@@ -216,6 +218,5 @@ namespace Tasks
         {
             return new Vector2d(_x, _y);
         }
-        
     }
 }

@@ -7,7 +7,8 @@ namespace Test
     [TestClass]
     public class UnitTest1
     {
-        private const double  Tolerance = 0.001d;
+        private const double Tolerance = 0.001d;
+
         [TestMethod]
         public void TestVector()
         {
@@ -18,9 +19,9 @@ namespace Test
             Assert.IsTrue(Math.Abs(1 - v1.EuclidDistance(v2)) < Tolerance);
             Vector2d sum = v1.AddVector(v2);
 
-            Assert.IsTrue(1 == sum.X,"Failed to sum");
-            Assert.IsTrue(2 == sum.Y,"Failed to sum");
-            Vector2d sub  = v1.SubVector(v2);
+            Assert.IsTrue(1 == sum.X, "Failed to sum");
+            Assert.IsTrue(2 == sum.Y, "Failed to sum");
+            Vector2d sub = v1.SubVector(v2);
 
             Assert.IsTrue(-1 == sub.X, "Failed to subtract");
             Assert.IsTrue(0 == sub.Y, "Failed to subtract");
