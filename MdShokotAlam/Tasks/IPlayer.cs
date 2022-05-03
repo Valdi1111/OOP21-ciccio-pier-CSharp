@@ -1,6 +1,8 @@
-﻿namespace Tasks
+﻿using Tasks.entities.@base;
+
+namespace Tasks
 {
-    public interface IPlayer
+    public interface IPlayer : ILivingEntity
     {
         /// <summary>
         /// Get the current score

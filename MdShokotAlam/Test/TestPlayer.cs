@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Tasks;
+using Tasks.entities;
+using Tasks.entities.@base;
 
 namespace Test
 {
@@ -9,7 +11,8 @@ namespace Test
         [TestMethod]
         public void TestPlayerStamina()
         {
-            PlayerImpl playerImpl = new PlayerImpl();
+            IWorld world = new GameWorld();
+            PlayerImpl playerImpl = new PlayerImpl(world);
 
             Assert.AreEqual(playerImpl.GetMaxStamina(), playerImpl.Stamina,
                 "Failed to start with max samina ");
@@ -26,7 +29,9 @@ namespace Test
         [TestMethod]
         public void TestPlayerCoin()
         {
-            PlayerImpl playerImpl = new PlayerImpl();
+            IWorld world = new GameWorld();
+            PlayerImpl playerImpl = new PlayerImpl(world);
+
             Assert.IsTrue(playerImpl.Coin == 0, "Failed to start as 0");
             playerImpl.AddCoin();
             playerImpl.AddCoin();
@@ -37,7 +42,9 @@ namespace Test
         [TestMethod]
         public void TestPlayerScore()
         {
-            PlayerImpl playerImpl = new PlayerImpl();
+            IWorld world = new GameWorld();
+            PlayerImpl playerImpl = new PlayerImpl(world);
+
             Assert.IsTrue(playerImpl.Score == 0, "Failed to start as 0");
             playerImpl.AddScore(10);
             playerImpl.AddScore(20);
