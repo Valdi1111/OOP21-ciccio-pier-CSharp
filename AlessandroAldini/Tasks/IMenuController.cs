@@ -1,20 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Tasks
 {
+    /// <summary>
+    /// This class is the controller of the users and menu
+    /// </summary>
     public interface IMenuController
     {
-        /// <summary>
-        /// This function loads the main menu controller
-        /// </summary>
-        void Load();
-
         /// <summary>
         /// This function is called to load the users from the json file and update their levels if they are missing using
         /// <see cref="User.SetLevelScore"/> called after any update to the users and after the creation of
         /// <see cref="MainMenuController"/> 
         /// </summary>
-        void LoadUsers();
+        Task LoadUsers();
 
         /// <summary>
         /// This function is called whenever a change in a user is made and updates the json file with the new information
@@ -28,12 +27,6 @@ namespace Tasks
         /// <param name="username"></param>
         /// <returns>The user that was just created</returns>
         User CreateUser(string username);
-
-        /// <summary>
-        /// Represents the username of the player
-        /// </summary>
-        string Username { get; }
-
 
         /// <summary>
         /// Represents the active player instance

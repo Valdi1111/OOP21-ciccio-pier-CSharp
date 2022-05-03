@@ -2,6 +2,9 @@
 
 namespace Tasks
 {
+    /// <summary>
+    /// This class define the levels of the game
+    /// </summary>
     public class Level
     {
         private static readonly HashSet<Level> Levels = new HashSet<Level>();
@@ -11,26 +14,45 @@ namespace Tasks
         public static readonly Level BossLevel = new Level(ThirdLevel, "level-1-4.tmx", "level_4", "BOSS Level");
         private readonly Level _prevLevel;
 
+        /// <summary>
+        /// This constructor generates and adds a new level
+        /// </summary>
+        /// <param name="prevLevel"> the level that needs to be played before this one</param>
+        /// <param name="fileName"> the name of the file</param>
+        /// <param name="jsonId"> the identification in the json file</param>
+        /// <param name="name"> the name of the level</param>
         private Level(Level prevLevel, string fileName, string jsonId, string name)
         {
             _prevLevel = prevLevel;
             FileName = fileName;
-            GetJsonId = jsonId;
+            JsonId = jsonId;
             GetName = name;
             Levels.Add(this);
         }
 
+        /// <summary>
+        /// This is a getter and setter for the file name
+        /// </summary>
         public string FileName { get; }
 
-        public string GetJsonId { get; }
+        /// <summary>
+        /// This is a getter and setter for the json id
+        /// </summary>
+        public string JsonId { get; }
 
+        /// <summary>
+        /// This is a getter and setter for the level name
+        /// </summary>
         public string GetName { get; }
 
+        /// <summary>
+        /// this is a getter for the level hash set
+        /// </summary>
         public static HashSet<Level> GetLevels => Levels;
 
-        public Level GetPrevLevel()
-        {
-            return _prevLevel;
-        }
+        /// <summary>
+        /// this is a getter for the previous level
+        /// </summary>
+        public Level GetPrevLevel => _prevLevel;
     }
 }
