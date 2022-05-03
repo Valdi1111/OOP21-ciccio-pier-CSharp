@@ -1,13 +1,15 @@
-﻿namespace Tasks
+﻿using Tasks.entities.@base;
+
+namespace Tasks
 {
-    public class PlayerImpl : IPlayer
+    public class PlayerImpl : SimpleLivingEntity, IPlayer
     {
         private const int MaxStamina = 200;
 
         /// <summary>
         /// Constructor for this class
         /// </summary>
-        public PlayerImpl()
+        public PlayerImpl(IWorld world) : base(EntityType.Player, world)
         {
             Score = 0;
             Coin = 0;
